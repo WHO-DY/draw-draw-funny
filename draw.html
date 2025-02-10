@@ -52,8 +52,57 @@
     <button onclick="startDraw()">開始抽獎</button>
 </body>
 <script>
+    const gNumberSize = 9;
+    const gNumberList = Array.from({ length: gNumberSize }, (_, i) => i + 1);
+    var garrNowDrawnNumber;
+    var gNumberNowSize = 40;
+
+    function drawNumber(nowSize, nowNumberList) {
+        var randomNum;
+        var index = Math.floor(Math.random() * nowSize);
+        drawnNumber = nowNumberList.splice(index, 1)[0];
+        nowSize--;
+        console.log("[drawNumber] drawnNumber : " + drawnNumber + " index : " + index + " nowSize : " + nowSize);
+        return [nowSize, nowNumberList, drawnNumber];
+    }
+
     $(".cell").on("click", function() {
         console.log("click : " + $(this).text());
     })
+    function assignToHTML(arrDrawnNumber, len) {
+        for (var i = 0; i < len; i++) {
+            let value = arrDrawnNumber[i];
+            console.log("value : " + value)
+            let szId = "#inner" + (i + 1);
+            $(szId).on("click", function() {
+                console.log("click : " + $(this).text());
+                console.log("set : " + value);
+            })
+        }
+    }
+    function generateLottery() {
+        var len = 9;
+        var nowSize = gNumberSize;
+        var nowNumberList = gNumberList.slice();
+        var result;
+        var arrDrawnNumber = new Array(len);
+
+        for (var i = 0; i < len; i++) {
+            [nowSize, nowNumberList, drawnNumber] = drawNumber(nowSize, nowNumberList);
+            console.log("[generateLottery] drawnNumber : " + drawnNumber);
+            console.log("[generateLottery] nowSize : " + nowSize);
+            console.log("[generateLottery] nowNumberList : " + nowNumberList);
+            arrDrawnNumber[i] = drawnNumber;
+        }
+        //arrDrawnNumber = arrDrawnNumber.sort((a,b)=>a-b);
+        console.log("[generateLottery] arrDrawnNumber : " + arrDrawnNumber);
+        assignToHTML(arrDrawnNumber, len);
+        garrNowDrawnNumber = arrDrawnNumber;
+        arrDrawnNumber = null;
+    }
+
+    (function () {
+        generateLottery();
+    }) ();
 </script>
 </html>
