@@ -4,105 +4,221 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>九宮格抽獎</title>
-    <style>
-        body { text-align: center; font-family: Arial, sans-serif; }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-template-rows: repeat(3, 100px);
-            gap: 10px;
-            margin: 20px auto;
-            width: 330px;
-        }
-        .cell {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100px;
-            height: 100px;
-            border: 2px solid #000;
-            font-size: 18px;
-            font-weight: bold;
-            background: #f1f1f1;
-            transition: background 0.3s;
-        }
-        .highlight { background: gold !important; }
-        button {
-            padding: 10px 20px;
-            font-size: 18px;
-            margin-top: 20px;
-        }
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body>
-
-    <h1>九宮格抽獎</h1>
+    <h1>Poking Lottery</h1>
     <div id="outer" class="grid">
-        <div id="inner1" class="cell">iPhone</div>
-        <div id="inner2" class="cell">電視</div>
-        <div id="inner3" class="cell">耳機</div>
-        <div id="inner4" class="cell">100元</div>
-        <div id="inner5" class="cell">🎁 開始</div>
-        <div id="inner6" class="cell">50元</div>
-        <div id="inner7" class="cell">感謝參與</div>
-        <div id="inner8" class="cell">200元</div>
-        <div id="inner9" class="cell">筆電</div>
+        <div id="inner1" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/1.png" style="height: 100%; width: 100%;"></div>
+        <div id="inner2" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/2.png" style="height: 100%; width: 100%;"></div>
+        <div id="inner3" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/3.png" style="height: 100%; width: 100%;"></div>
+        <div id="inner4" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/4.png" style="height: 100%; width: 100%;"></div>
+        <div id="inner5" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/5.png" style="height: 100%; width: 100%;"></div>
+        <div id="inner6" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/6.png" style="height: 100%; width: 100%;"></div>
+        <div id="inner7" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/7.png" style="height: 100%; width: 100%;"></div>
+        <div id="inner8" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/8.png" style="height: 100%; width: 100%;"></div>
+        <div id="inner9" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/9.png" style="height: 100%; width: 100%;"></div>
+        <div id="inner10" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/10.png" style="height: 100%; width: 100%;"></div>
+        <div id="inner11" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/11.png" style="height: 100%; width: 100%;"></div>
+        <div id="inner12" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/12.png" style="height: 100%; width: 100%;"></div>
+        <div id="inner13" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/13.png" style="height: 100%; width: 100%;"></div>
+        <div id="inner14" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/14.png" style="height: 100%; width: 100%;"></div>
+        <div id="inner15" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/15.png" style="height: 100%; width: 100%;"></div>
+        <div id="inner16" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/16.png" style="height: 100%; width: 100%;"></div>
     </div>
-    <button onclick="startDraw()">開始抽獎</button>
 </body>
-<script>
-    const gNumberSize = 9;
-    const gNumberList = Array.from({ length: gNumberSize }, (_, i) => i + 1);
-    var garrNowDrawnNumber;
-    var gNumberNowSize = 40;
+<style>
+    body { text-align: center; font-family: Arial, sans-serif; }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 100px);
+        grid-template-rows: repeat(4, 100px);
+        gap: 10px;
+        margin: 20px auto;
+        width: 330px;
+    }
+    .cell {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 100px;
+        border: 2px solid #000;
+        font-size: 18px;
+        font-weight: bold;
+        background: #f1f1f1;
+        transition: background 0.3s;
+    }
+    .highlight { background: gold !important; }
+    button {
+        padding: 10px 20px;
+        font-size: 18px;
+        margin-top: 20px;
+    }
 
+    .ball {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: red;
+        border-radius: 50%;
+    }
+</style>
+<script>
+    //const garrUrlMap = {1 : "https://who-dy.github.io/draw-draw-funny/JiECaWa.png", 2 : "https://who-dy.github.io/draw-draw-funny/WuSaChi.png", 3 : "https://who-dy.github.io/draw-draw-funny/Small8Cat.png"}
+    const garrUrlMap = {1 : event_1, 2 : event_2, 3 : event_3};
+    const garrCountMap = {1 : 5, 2 : 10, 3: 1};
+    const garrIdx = [1, 2, 3];
+    const offsetPx = 50;
+    var gNumberSize = 0;
+    var gNumberList = 0;
+    const gDebug = 0;
+
+    function log_debug(string) {
+        if (gDebug) {
+            console.log(string);
+        }
+    }
+    function event_1(This) {
+        $(This).off("click");
+        $(This).find("img").attr("src", "https://who-dy.github.io/draw-draw-funny/hole.png");
+        const rect = This.getBoundingClientRect();
+        const x = rect.left + rect.width / 2 + window.scrollX;
+        const y = rect.top + rect.height / 2 + window.scrollY;
+        const instance = window.innerHeight - y - offsetPx;
+        log_debug("event_1 ... 1 ...This : " + This + "x : " + x + " y : " + y + " instance : " + instance + " window.scrollY : " + window.scrollY);
+        for (let i = 0; i < 1; i++) {
+            setTimeout(function() {
+                createBall(x, y, instance);
+            }, i * 500);
+            //createBall(x, y, instance);
+        }
+    }
+
+    function event_2(This) {
+        $(This).off("click");
+        $(This).find("img").attr("src", "https://who-dy.github.io/draw-draw-funny/hole.png");
+        const rect = This.getBoundingClientRect();
+        const x = rect.left + rect.width / 2 + window.scrollX;
+        const y = rect.top + rect.height / 2 + window.scrollY;
+        const instance = window.innerHeight - y - offsetPx;
+        log_debug("event_2 ... 1 ...This : " + This + "x : " + x + " y : " + y + " instance : " + instance + " window.scrollY : " + window.scrollY);
+        for (let i = 0; i < 2; i++) {
+            setTimeout(function() {
+                createBall(x, y, instance);
+            }, i * 500);
+            //createBall(x, y, instance);
+        }
+    }
+
+    function event_3(This) {
+        $(This).off("click");
+        $(This).find("img").attr("src", "https://who-dy.github.io/draw-draw-funny/hole.png");
+        const rect = This.getBoundingClientRect();
+        const x = rect.left + rect.width / 2 + window.scrollX;
+        const y = rect.top + rect.height / 2 + window.scrollY;
+        const instance = window.innerHeight - y - offsetPx;
+        log_debug("event_3 ... 1 ... This : " + This + "x : " + x + " y : " + y + " instance : " + instance + " window.scrollY : " + window.scrollY);
+        for (let i = 0; i < 10; i++) {
+            setTimeout(function() {
+                createBall(x, y, instance);
+            }, i * 500);
+            //createBall(x, y, instance);
+        }
+    }
+
+    function createBall(x, y, instance) {
+        const ball = document.createElement('div');
+        ball.classList.add('ball');
+        document.body.appendChild(ball);
+        log_debug("createBall ... 1 ... x : " + x + "y : " + y + " instance : " + instance);
+        gsap.set(ball, { left: x + 'px', top: y + 'px' });
+        gsap.to(ball, {
+            y: instance,
+            duration: 2,
+            ease: "quad.in",
+            onComplete: () => ball.remove()
+        });
+    }
+    
     function drawNumber(nowSize, nowNumberList) {
         var randomNum;
         var index = Math.floor(Math.random() * nowSize);
         drawnNumber = nowNumberList.splice(index, 1)[0];
         nowSize--;
-        console.log("[drawNumber] drawnNumber : " + drawnNumber + " index : " + index + " nowSize : " + nowSize);
+        log_debug("[drawNumber] drawnNumber : " + drawnNumber + " index : " + index + " nowSize : " + nowSize);
         return [nowSize, nowNumberList, drawnNumber];
     }
 
-    $(".cell").on("click", function() {
-        console.log("click : " + $(this).text());
-    })
-    function assignToHTML(arrDrawnNumber, len) {
+    function assignToHTML(arrDrawnNumber, len, arrNumberList) {
         for (var i = 0; i < len; i++) {
             let value = arrDrawnNumber[i];
-            console.log("value : " + value)
+            log_debug("value : " + value)
             let szId = "#inner" + (i + 1);
+            let This;
             $(szId).on("click", function() {
-                console.log("click : " + $(this).text());
-                console.log("set : " + value);
-            })
+                garrUrlMap[value](this);
+            });
+            /*let url = garrUrlMap[value];
+            log_debug("url : " + url + " arrNumberList[value] : " + arrNumberList[value] + " value : " + value);
+            $(szId).on("click", function() {
+                This = $(this);
+                log_debug("click : " + This.text());
+                log_debug("set : " + value);
+                This.find("img").attr("src", "https://who-dy.github.io/draw-draw-funny/hole.png");
+                setTimeout(function() {
+                    log_debug("1 sec");
+                    This.find("img").attr("src", url).attr("style", "height: 70%; width: 70%;");
+                    log_debug("222 : " + url);
+                }, 500)
+            })*/
         }
     }
-    function generateLottery() {
-        var len = 9;
-        var nowSize = gNumberSize;
-        var nowNumberList = gNumberList.slice();
+
+    function init() {
+        for (var i = 0; i < garrIdx.length; i++) {
+            log_debug("init() garrIdx[i] : " + garrIdx[i]);
+            log_debug("init() garrCountMap[garrIdx[i]] : " + garrCountMap[garrIdx[i]]);
+            log_debug("init() gNumberSize[i] : " + gNumberSize[i]);
+            gNumberSize = gNumberSize + garrCountMap[garrIdx[i]];
+        }
+        log_debug("init() gNumberSize : " + gNumberSize);
+        var idx = 0, listIdx = 0;
+        gNumberList = new Array(gNumberSize);
+        for (var i = 0; i < garrIdx.length; i++) {
+            idx = garrIdx[i];
+            for (var j = 0; j < garrCountMap[idx]; j++) {
+                gNumberList[listIdx] = idx;
+                listIdx++;
+            }
+        }
+        //gNumberList = Array.from({ length: gNumberSize }, (_, i) => i + 1);
+    }
+
+    function generateLottery(len, arrNumberList) {
+        var nowSize = len;
+        var nowNumberList = arrNumberList.slice();
         var result;
         var arrDrawnNumber = new Array(len);
 
         for (var i = 0; i < len; i++) {
             [nowSize, nowNumberList, drawnNumber] = drawNumber(nowSize, nowNumberList);
-            console.log("[generateLottery] drawnNumber : " + drawnNumber);
-            console.log("[generateLottery] nowSize : " + nowSize);
-            console.log("[generateLottery] nowNumberList : " + nowNumberList);
+            log_debug("[generateLottery] drawnNumber : " + drawnNumber);
+            log_debug("[generateLottery] nowSize : " + nowSize);
+            log_debug("[generateLottery] nowNumberList : " + nowNumberList);
             arrDrawnNumber[i] = drawnNumber;
         }
         //arrDrawnNumber = arrDrawnNumber.sort((a,b)=>a-b);
-        console.log("[generateLottery] arrDrawnNumber : " + arrDrawnNumber);
-        assignToHTML(arrDrawnNumber, len);
-        garrNowDrawnNumber = arrDrawnNumber;
+        log_debug("[generateLottery] arrDrawnNumber : " + arrDrawnNumber);
+        log_debug("[generateLottery] arrNumberList : " + arrNumberList);
+        log_debug("[generateLottery] gNumberList : " + gNumberList);
+        assignToHTML(arrDrawnNumber, len, arrNumberList);
         arrDrawnNumber = null;
     }
 
     (function () {
-        generateLottery();
+        init();
+        generateLottery(gNumberSize, gNumberList);
     }) ();
 </script>
 </html>

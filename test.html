@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>圖片彈來彈去</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;  /* 防止頁面出現滾動條 */
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    .image {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      transition: all 0.5s ease-in-out;
+      border-radius: 50%;  /* 圓形圖片 */
+    }
+
+    @keyframes bounce {
+      0% {
+        transform: translateX(0) translateY(0);
+      }
+      25% {
+        transform: translateX(90vw) translateY(0);  /* 移動到右邊 */
+      }
+      50% {
+        transform: translateX(90vw) translateY(90vh);  /* 移動到底部 */
+      }
+      75% {
+        transform: translateX(0) translateY(90vh);  /* 移動到左邊 */
+      }
+      100% {
+        transform: translateX(0) translateY(0);  /* 回到初始位置 */
+      }
+    }
+
+    .move {
+      animation: bounce 4s infinite;  /* 動畫設定，持續循環 */
+    }
+  </style>
+</head>
+<body>
+
+  <img src="https://who-dy.github.io/draw-draw-funny/JiECaWa.png" alt="圖片" class="image" id="myImage">
+
+  <script>
+    function startBouncing() {
+      var img = document.getElementById('myImage');
+      img.classList.add('move');  // 添加動畫類，開始彈來彈去
+    }
+
+    // 當頁面加載完成時，啟動動畫
+    window.onload = startBouncing;
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽抽樂掉落球</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #222;
+            overflow: hidden;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 10px;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            cursor: pointer;
+            border: 2px solid black;
+        }
+        .ball {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+        <div class="box">5</div>
+        <div class="box">6</div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        document.querySelectorAll('.box').forEach(box => {
+            box.addEventListener('click', event => {
+                const rect = box.getBoundingClientRect();
+                const x = rect.left + rect.width / 2 + window.scrollX;
+                const y = rect.top + rect.height / 2 + window.scrollY;
+                const instance = window.innerHeight - y;
+                for (let i = 0; i < 1; i++) {
+                    createBall(x, y, instance);
+                }
+            });
+        });
+
+        function createBall(x, y, instance) {
+            const ball = document.createElement('div');
+            ball.classList.add('ball');
+            document.body.appendChild(ball);
+            console.log("createBall ... 1 ... x : " + x + " y : " + y + " window.innerHeight : " + window.innerHeight + " instance : " + instance);
+            gsap.set(ball, { left: x + 'px', top: y + 'px' });
+            gsap.to(ball, {
+                y: y + instance,
+                duration: 3,
+                ease: "bounce.out",
+                onComplete: () => ball.remove()
+            });
+        }
+    </script>
+</body>
+</html>
