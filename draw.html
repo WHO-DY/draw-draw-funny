@@ -26,16 +26,29 @@
         <div id="inner15" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/15.png" style="height: 100%; width: 100%;"></div>
         <div id="inner16" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/16.png" style="height: 100%; width: 100%;"></div>
     </div>
+    <div class="bottom-image">
+        <img src="https://who-dy.github.io/draw-draw-funny/garbage.png" style="height: 100%; width: 50%;">
+    </div>
 </body>
 <style>
-    body { text-align: center; font-family: Arial, sans-serif; }
+    body { 
+        height: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        font-family: Arial, sans-serif;
+    }
     .grid {
         display: grid;
         grid-template-columns: repeat(4, 100px);
         grid-template-rows: repeat(4, 100px);
         gap: 10px;
-        margin: 20px auto;
-        width: 330px;
+        margin: 20px;
+        width: 440px; /* 4 * 100px + 3 * 10px (gap) */
+        height: 440px; /* Same as width to keep it square */
     }
     .cell {
         display: flex;
@@ -63,13 +76,18 @@
         background-color: red;
         border-radius: 50%;
     }
+    .bottom-image {
+        position: absolute;
+        bottom: 10px;
+        width: 50%;
+    }
 </style>
 <script>
     //const garrUrlMap = {1 : "https://who-dy.github.io/draw-draw-funny/JiECaWa.png", 2 : "https://who-dy.github.io/draw-draw-funny/WuSaChi.png", 3 : "https://who-dy.github.io/draw-draw-funny/Small8Cat.png"}
     const garrUrlMap = {1 : event_1, 2 : event_2, 3 : event_3};
     const garrCountMap = {1 : 5, 2 : 10, 3: 1};
     const garrIdx = [1, 2, 3];
-    const offsetPx = 50;
+    const offsetPx = 100;
     var gNumberSize = 0;
     var gNumberList = 0;
     const gDebug = 0;
