@@ -1,74 +1,85 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body>
     <h1>Poking Lottery</h1>
     <div id="outer" class="grid">
-        <div id="inner1" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/1.png" style="height: 100%; width: 100%;"></div>
-        <div id="inner2" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/2.png" style="height: 100%; width: 100%;"></div>
-        <div id="inner3" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/3.png" style="height: 100%; width: 100%;"></div>
-        <div id="inner4" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/4.png" style="height: 100%; width: 100%;"></div>
-        <div id="inner5" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/5.png" style="height: 100%; width: 100%;"></div>
-        <div id="inner6" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/6.png" style="height: 100%; width: 100%;"></div>
-        <div id="inner7" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/7.png" style="height: 100%; width: 100%;"></div>
-        <div id="inner8" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/8.png" style="height: 100%; width: 100%;"></div>
-        <div id="inner9" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/9.png" style="height: 100%; width: 100%;"></div>
-        <div id="inner10" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/10.png" style="height: 100%; width: 100%;"></div>
-        <div id="inner11" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/11.png" style="height: 100%; width: 100%;"></div>
-        <div id="inner12" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/12.png" style="height: 100%; width: 100%;"></div>
-        <div id="inner13" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/13.png" style="height: 100%; width: 100%;"></div>
-        <div id="inner14" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/14.png" style="height: 100%; width: 100%;"></div>
-        <div id="inner15" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/15.png" style="height: 100%; width: 100%;"></div>
-        <div id="inner16" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/16.png" style="height: 100%; width: 100%;"></div>
+        <div id="inner1" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/1.png"></div>
+        <div id="inner2" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/2.png"></div>
+        <div id="inner3" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/3.png"></div>
+        <div id="inner4" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/4.png"></div>
+        <div id="inner5" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/5.png"></div>
+        <div id="inner6" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/6.png"></div>
+        <div id="inner7" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/7.png"></div>
+        <div id="inner8" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/8.png"></div>
+        <div id="inner9" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/9.png"></div>
+        <div id="inner10" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/10.png"></div>
+        <div id="inner11" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/11.png"></div>
+        <div id="inner12" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/12.png"></div>
+        <div id="inner13" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/13.png"></div>
+        <div id="inner14" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/14.png"></div>
+        <div id="inner15" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/15.png"></div>
+        <div id="inner16" class="cell"><img src="https://who-dy.github.io/draw-draw-funny/16.png"></div>
     </div>
-    <div class="bottom-image" style="height: 20%; width: 50%;">
+    <div id="middle"></div>
+    <div class="bottom-image">
         <img src="https://who-dy.github.io/draw-draw-funny/garbage.png" style="height: 100%; width: 100%;">
     </div>
 </body>
 <style>
-    body { 
-        height: 100%;
-        margin: 0;
+    body {
         display: flex;
-        justify-content: center;
-        align-items: center;
         flex-direction: column;
-        text-align: center;
-        font-family: Arial, sans-serif;
-    }
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr); /* This will make columns flexible */
-        grid-template-rows: repeat(4, 1fr);    /* This will make rows flexible */
-        gap: 10px;
-        margin: 20px;
-        width: 40%; /* Set the width to 50% of the viewport */
-        height: 40%; /* Adjust the height for the gap */
-    }
-    .cell {
-        display: flex;
         align-items: center;
-        justify-content: center;
-        border: 2px solid #000;
-        font-size: 18px;
-        font-weight: bold;
-        background: #f1f1f1;
-        transition: background 0.3s;
-        width: 100%;
-        height: 100%;
-    }
-    .highlight { background: gold !important; }
-    button {
-        padding: 10px 20px;
-        font-size: 18px;
-        margin-top: 20px;
+        height: 100vh;
+        margin: 0;
     }
 
+    h1 {
+        height: 10%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #outer {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 4x4 格子 */
+        gap: 5px;
+        height: 40%;
+        aspect-ratio: 1/1; /* 高度自動調整，保持正方形 */
+    }
+    .cell {
+        display: flex;       /* 讓圖片居中 */
+        justify-content: center;
+        border: 2px solid #000;
+        align-items: center;
+        max-height: 100%;        /* 固定 .cell 高度 */
+        max-width: 100%;         /* 固定 .cell 寬度 */
+    }
+    .cell img {
+        max-width: 100%;     /* 防止圖片超出 */
+        max-height: 100%;    /* 防止圖片超出 */
+    }
+
+    /* 新增的中間區塊 */
+    #middle {
+        height: 40%;
+        width: 50%;
+        display: flex;
+    }
+
+    .bottom-image {
+        height: 10%;
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     .ball {
         position: absolute;
         width: 20px;
@@ -76,10 +87,9 @@
         background-color: red;
         border-radius: 50%;
     }
-    .bottom-image {
-        position: absolute;
-        bottom: 10px;
-        width: 50%;
+    .bottom-image img {
+        width: 100%;
+        height: 100%;
     }
 </style>
 
@@ -89,7 +99,7 @@
     const garrUrlMap = {1 : event_1, 2 : event_2, 3 : event_3};
     const garrCountMap = {1 : 5, 2 : 10, 3: 1};
     const garrIdx = [1, 2, 3];
-    const offsetPx = 100;
+    const offsetPx = window.innerHeight * 0.1; // 0.1 ratio is .bottom-image height: 10%;
     var gNumberSize = 0;
     var gNumberList = 0;
     const gDebug = 0;
